@@ -89,12 +89,10 @@ open class CardViewGroup @JvmOverloads constructor(context: Context, attrs: Attr
      * Save the current state for when changing between landscape/portrait
      */
     override
-    fun onSaveInstanceState(): Parcelable? {
-        return Bundle().apply {
-            putParcelable("superState", super.onSaveInstanceState())
-            putInt("selectedCard", selectedCard)
-            putString("dashboardState", galleryState.toString())
-        }
+    fun onSaveInstanceState() = Bundle().apply {
+        putParcelable("superState", super.onSaveInstanceState())
+        putInt("selectedCard", selectedCard)
+        putString("dashboardState", galleryState.toString())
     }
 
     /**
@@ -182,31 +180,25 @@ open class CardViewGroup @JvmOverloads constructor(context: Context, attrs: Attr
     /**
      * Get the measurements for a card that is the selected card in the detail state
      */
-    fun getDetailCardMeasurements(): CardMeasurements {
-        return CardMeasurements(
-            height = getDetailCardHeight(),
-            width = getChildWidth(),
-            yValue = this.paddingTop + getTopSpacing())
-    }
+    fun getDetailCardMeasurements() = CardMeasurements(
+        height = getDetailCardHeight(),
+        width = getChildWidth(),
+        yValue = this.paddingTop + getTopSpacing())
 
     /**
      * Get the measurements for a card that is in the dashboard stats
      */
-    fun getDashboardCardMeasurements(currentTop: Int): CardMeasurements {
-        return CardMeasurements(
-            height = getDashboardCardHeight(),
-            width = getChildWidth(),
-            yValue = currentTop)
-    }
+    fun getDashboardCardMeasurements(currentTop: Int) = CardMeasurements(
+        height = getDashboardCardHeight(),
+        width = getChildWidth(),
+        yValue = currentTop)
 
     /**
      * Callback for when a card is clicked to transition to either detail or dashboard state
      */
-    fun click(selected: Int) {
-        when (galleryState) {
-            GalleryState.DETAIL -> transitionToDashboardState()
-            GalleryState.DASHBOARD -> transitionDetailState(selected)
-        }
+    fun click(selected: Int) = when (galleryState) {
+        GalleryState.DETAIL -> transitionToDashboardState()
+        GalleryState.DASHBOARD -> transitionDetailState(selected)
     }
 
     /**
